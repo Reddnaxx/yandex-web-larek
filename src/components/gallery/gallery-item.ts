@@ -2,6 +2,7 @@ import { IProduct, IView } from '../../types';
 import { ensureElement } from '../../utils/utils';
 import { IEvents } from '../base/events';
 import { ShopApi } from '../shop-api';
+import { GalleryItemCategory } from './gallery-item-category';
 
 export class GalleryItemView implements IView {
 	protected title: HTMLHeadingElement;
@@ -34,6 +35,12 @@ export class GalleryItemView implements IView {
 			this.image.src = ShopApi.getImageUrl(data.image);
 			this.price.textContent = data.price?.toString() ?? 'бесценно';
 			this.category.textContent = data.category;
+
+			if (data.category in GalleryItemCategory) {
+				this.category.classList.add(
+					GalleryItemCategory[data.category as keyof typeof GalleryItemCategory]
+				);
+			}
 		}
 
 		return this.container;
