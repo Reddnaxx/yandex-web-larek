@@ -1,8 +1,13 @@
 import { IView } from '../../types';
+import { ensureElement } from '../../utils/utils';
 import { IEvents } from '../base/events';
 
 export class GalleryView implements IView {
-	constructor(protected container: HTMLElement, protected events: IEvents) {}
+	protected modalTemplate: HTMLTemplateElement;
+
+	constructor(protected container: HTMLElement, protected events: IEvents) {
+		this.modalTemplate = ensureElement('#card-preview') as HTMLTemplateElement;
+	}
 
 	render(data: { items: HTMLElement[] }): HTMLElement {
 		if (data) {

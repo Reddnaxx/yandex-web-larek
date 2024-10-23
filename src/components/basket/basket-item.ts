@@ -1,4 +1,5 @@
 import { IProduct, IView } from '../../types';
+import { ensureElement } from '../../utils/utils';
 import { IEvents } from '../base/events';
 
 export class BasketItemView implements IView {
@@ -9,15 +10,18 @@ export class BasketItemView implements IView {
 	protected id: string | null = null;
 
 	constructor(protected container: HTMLElement, protected events: IEvents) {
-		this.title = container.querySelector(
-			'.basket-item__title'
-		) as HTMLSpanElement;
-		this.addButton = container.querySelector(
-			'.basket-item__add'
-		) as HTMLButtonElement;
-		this.removeButton = container.querySelector(
-			'.basket-item__remove'
-		) as HTMLButtonElement;
+		this.title = ensureElement<HTMLSpanElement>(
+			'.basket-item__title',
+			this.container
+		);
+		this.addButton = ensureElement<HTMLButtonElement>(
+			'.basket-item__add',
+			this.container
+		);
+		this.removeButton = ensureElement<HTMLButtonElement>(
+			'.basket-item__remove',
+			this.container
+		);
 
 		this.addButton.addEventListener('click', () => {
 			this.events.emit('ui:basket-add', { id: this.id });

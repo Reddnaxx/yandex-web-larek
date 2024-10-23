@@ -1,35 +1,24 @@
 import { EventEmitter } from './components/base/events';
-import { BasketModel, BasketView } from './components/basket';
-import {
-	GalleryItemView,
-	GalleryModel,
-	GalleryView,
-} from './components/gallery';
-import { IProductResponse, ShopApi } from './components/shop-api';
+import { GalleryModel, GalleryView } from './components/gallery';
+import { GalleryController } from './components/gallery/gallery.controller';
+import { ModalView } from './components/modal';
+import { ModalController } from './components/modal/modal.controller';
+import { ShopApi } from './components/shop-api';
 import './scss/styles.scss';
-import { IProducts } from './types';
-import { cloneTemplate } from './utils/utils';
+import { ensureElement } from './utils/utils';
 
 const api = new ShopApi();
 const events = new EventEmitter();
-const basketView = new BasketView(document.querySelector('.basket'), events);
-const basketModel = new BasketModel(events);
+
+const modal = new ModalView(ensureElement('#modal-container'), events);
+const modalController = new ModalController(modal, events);
+
 const galleryModel = new GalleryModel(events);
-const galleryView = new GalleryView(document.querySelector('.gallery'), events);
+const galleryView = new GalleryView(ensureElement('.gallery'), events);
+const galleryController = new GalleryController(events, galleryView);
 
-const renderCatalog = (products: IProducts) => {
-	galleryView.render({
-		items: products.map((product) => {
-			const container = cloneTemplate('#card-catalog');
-			const itemView = new GalleryItemView(container, events);
-			return itemView.render(product);
-		}),
-	});
-};
-
-events.on('catalog:set', (products: IProductResponse) => {
-	renderCatalog(products.items);
-});
+modalController.init();
+galleryController.init();
 
 api.getProducts().then((products) => {
 	galleryModel.setProducts(products);
