@@ -11,7 +11,7 @@ export class ModalController implements IModalController {
 	init(): void {
 		this.events.on('modal:open', (data: IModalData) => {
 			this.modalView.render({
-				container: data.containerTemplate,
+				container: data.container,
 				content: data.content,
 			});
 			this.modalView.show();

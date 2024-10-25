@@ -1,4 +1,4 @@
-import { IProducts } from '../types';
+import { IProduct, IProducts } from '../types';
 import { API_URL, CDN_URL } from '../utils/constants';
 import { Api } from './base/api';
 
@@ -14,6 +14,10 @@ export class ShopApi extends Api {
 
 	getProducts(): Promise<IProducts> {
 		return this.get('/product') as Promise<IProducts>;
+	}
+
+	getProduct(id: string): Promise<IProduct> {
+		return this.get(`/product/${id}`) as Promise<IProduct>;
 	}
 
 	static getImageUrl(path: string): string {

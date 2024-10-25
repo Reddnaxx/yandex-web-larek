@@ -1,6 +1,7 @@
 import { IProducts } from '../../types';
 import { cloneTemplate } from '../../utils/utils';
 import { IEvents } from '../base/events';
+import { BasketModel, IBasketModel } from '../basket';
 import { IProductResponse } from '../shop-api';
 import { GalleryView } from './gallery';
 import { GalleryItemView } from './gallery-item';
@@ -11,6 +12,8 @@ export interface IGalleryController {
 }
 
 export class GalleryController implements IGalleryController {
+	protected basket: IBasketModel = BasketModel.Instance;
+
 	constructor(protected events: IEvents, protected galleryView: GalleryView) {}
 
 	init(): void {

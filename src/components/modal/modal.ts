@@ -8,7 +8,7 @@ export interface IModalContent {
 }
 
 export interface IModalData {
-	containerTemplate: HTMLTemplateElement;
+	container: HTMLTemplateElement;
 	content: IModalContent;
 }
 
@@ -70,7 +70,7 @@ export class ModalView implements IView {
 
 		if (data.content) {
 			data.content.getElements(this.contentContainer);
-			data.content.setElements(data.content);
+			data.content.setElements(null);
 		}
 
 		return this.container;
