@@ -1,4 +1,4 @@
-import { IProduct, IProducts } from '../../types';
+import { IProduct, IProducts } from '@/types';
 import { IEvents } from '../base/events';
 
 export interface IGalleryModel {

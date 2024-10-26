@@ -1,9 +1,8 @@
-import { IView } from '../../types';
-import { cloneTemplate, ensureElement } from '../../utils/utils';
+import { IView } from '@/types';
+import { cloneTemplate, ensureElement } from '@/utils/utils';
 import { IEvents } from '../base/events';
+import { BasketModalContent, BasketModel, IBasketModel } from '../modals/basket';
 import { ShopApi } from '../shop-api';
-import { BasketModalContent } from './basket-modal-content';
-import { BasketModel, IBasketModel } from './basket.model';
 
 export class BasketButton implements IView {
 	protected basket: IBasketModel = BasketModel.Instance;
@@ -36,7 +35,7 @@ export class BasketButton implements IView {
 		});
 	}
 
-	render(data?: object): HTMLElement {
+	render(): HTMLElement {
 		this.counter.textContent = this.basket.toString();
 
 		return this.container;

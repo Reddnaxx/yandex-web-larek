@@ -1,6 +1,6 @@
-import { IProduct, IView } from '../../types';
-import { ensureElement } from '../../utils/utils';
-import { IEvents } from '../base/events';
+import { IEvents } from '@/components/base/events';
+import { IProduct, IView } from '@/types';
+import { ensureElement } from '@/utils/utils';
 
 export interface IBasketItemData {
 	product: IProduct;

@@ -1,10 +1,10 @@
-import { IProduct, IView } from '../../types';
-import { ensureElement } from '../../utils/utils';
-import { IEvents } from '../base/events';
-import { BasketModel, IBasketModel } from '../basket';
-import { CardPreview } from '../card-preview/card-preview';
-import { IModalData } from '../modal';
-import { ShopApi } from '../shop-api';
+import { IEvents } from '@/components/base/events';
+import { IModalData } from '@/components/modal';
+import { BasketModel, IBasketModel } from '@/components/modals/basket';
+import { CardPreview } from '@/components/modals/card-preview';
+import { ShopApi } from '@/components/shop-api';
+import { IProduct, IView } from '@/types';
+import { ensureElement } from '@/utils/utils';
 import { GalleryItemCategory } from './gallery-item-category.enum';
 
 export class GalleryItemView implements IView {

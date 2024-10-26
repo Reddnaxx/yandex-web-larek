@@ -1,10 +1,10 @@
-import { IProduct } from '../../types';
-import { ensureElement } from '../../utils/utils';
-import { IEvents } from '../base/events';
+import { IEvents } from '@/components/base/events';
+import { GalleryItemCategory } from '@/components/gallery';
+import { IModalContent } from '@/components/modal';
+import { ShopApi } from '@/components/shop-api';
+import { IProduct } from '@/types';
+import { ensureElement } from '@/utils/utils';
 import { BasketModel, IBasketModel } from '../basket';
-import { GalleryItemCategory } from '../gallery';
-import { IModalContent } from '../modal';
-import { ShopApi } from '../shop-api';
 
 export class CardPreview implements IModalContent {
 	protected basket: IBasketModel = BasketModel.Instance;
@@ -43,6 +43,10 @@ export class CardPreview implements IModalContent {
 		this.image.src = ShopApi.getImageUrl(this.content.image);
 
 		if (this.content.category in GalleryItemCategory) {
+			Object.values(GalleryItemCategory).forEach(className => {
+				this.category.classList.remove(className);
+			});
+
 			this.category.classList.add(
 				GalleryItemCategory[
 					this.content.category as keyof typeof GalleryItemCategory
@@ -50,14 +54,15 @@ export class CardPreview implements IModalContent {
 			);
 		}
 
-		this.button.onclick = () => this.setButtonState();
+		this.button.disabled = !this.content.price;
+		this.button.onclick = () => this.toggleButtonState();
 
 		this.button.textContent = this.inBasket
 			? 'Удалить из корзины'
 			: 'Добавить в корзину';
 	}
 
-	setButtonState() {
+	toggleButtonState() {
 		if (this.inBasket) {
 			this.events.emit('basket:remove', { id: this.content.id });
 			this.button.textContent = 'Добавить в корзину';

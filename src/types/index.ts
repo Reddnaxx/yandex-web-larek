@@ -1,4 +1,3 @@
-import { IEvents } from '../components/base/events';
 
 export interface IProduct {
 	id: string;
@@ -11,16 +10,28 @@ export interface IProduct {
 
 export interface IProducts extends Array<IProduct> {}
 
-export interface IOrder {
+export interface IProductsResponse {
+	items: IProduct[];
+	total: number;
+}
+
+export interface IOrderResponse {
 	id: string;
 	total: number;
 }
 
-export interface IOrders extends Array<IOrder> {}
+export type PaymentType = 'online' | 'cash';
 
-export interface IViewConstructor {
-	new (container: HTMLElement, events: IEvents): IView;
+export interface IOrder {
+	payment: PaymentType;
+	email: string;
+	phone: string;
+	address: string;
+	total: number;
+	items: string[];
 }
+
+export interface IOrders extends Array<IOrder> {}
 
 export interface IView {
 	render(data?: object): HTMLElement;

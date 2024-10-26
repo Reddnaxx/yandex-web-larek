@@ -1,6 +1,6 @@
-import { IProduct } from '../../types';
-import { IEvents } from '../base/events';
-import { ShopApi } from '../shop-api';
+import { IEvents } from '@/components/base/events';
+import { ShopApi } from '@/components/shop-api';
+import { IProduct } from '@/types';
 
 export interface IBasketModel {
 	addItem(id: string): void;
@@ -32,6 +32,11 @@ export class BasketModel implements IBasketModel {
 		this.events.emit('basket:change', this.items);
 	}
 
+	clearItems(): void {
+		this.items = [];
+		this.events.emit('basket:change', this.items);
+	}
+
 	getItems(): IProduct[] {
 		return this.items;
 	}
@@ -51,6 +56,10 @@ export class BasketModel implements IBasketModel {
 
 		this.events.on('basket:remove', (data: { id: string }) => {
 			this.removeItem(data.id);
+		});
+
+		this.events.on('basket:clear', () => {
+			this.clearItems();
 		});
 	}
 }

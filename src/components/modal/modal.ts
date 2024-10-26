@@ -1,10 +1,10 @@
-import { IView } from '../../types';
-import { ensureElement } from '../../utils/utils';
+import { IView } from '@/types';
+import { ensureElement } from '@/utils/utils';
 import { IEvents } from '../base/events';
 
 export interface IModalContent {
 	getElements(container: HTMLElement): void;
-	setElements(content: object): void;
+	setElements(): void;
 }
 
 export interface IModalData {
@@ -28,6 +28,18 @@ export class ModalView implements IView {
 	}
 
 	protected initEvents(): void {
+		this.events.on('modal:open', (data: IModalData) => {
+			this.render({
+				container: data.container,
+				content: data.content,
+			});
+			this.show();
+		});
+
+		this.events.on('modal:close', () => {
+			this.hide();
+		});
+
 		this.container.onclick = () => {
 			this.events.emit('modal:close');
 		};
@@ -70,7 +82,7 @@ export class ModalView implements IView {
 
 		if (data.content) {
 			data.content.getElements(this.contentContainer);
-			data.content.setElements(null);
+			data.content.setElements();
 		}
 
 		return this.container;
