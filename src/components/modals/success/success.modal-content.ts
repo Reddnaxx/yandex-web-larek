@@ -1,12 +1,15 @@
-import { IEvents } from '@/components/base/events';
-import { IModalContent } from '@/components/modal';
-import { IOrderResponse } from '@/types';
+import type { IEvents } from '@/components/base/events';
+import type { IModalContent } from '@/components/modal';
+import type { IOrderResponse } from '@/types';
 import { ensureElement } from '@/utils/utils';
 
 export class SuccessModalContent implements IModalContent {
 	protected description: HTMLElement;
 	protected closeButton: HTMLButtonElement;
-	constructor(protected events: IEvents, protected order: IOrderResponse) {}
+	constructor(
+		protected events: IEvents,
+		protected order: IOrderResponse
+	) {}
 
 	getElements(container: HTMLElement): void {
 		this.description = ensureElement<HTMLElement>(

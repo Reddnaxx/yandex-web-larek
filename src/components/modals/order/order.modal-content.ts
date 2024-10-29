@@ -1,7 +1,7 @@
-import { IEvents } from '@/components/base/events';
-import { IModalContent } from '@/components/modal';
-import { ModalContentFactory } from '@/factories/modal.factory';
-import { IOrder, PaymentType } from '@/types';
+import type { IEvents } from '@/components/base/events';
+import type { IModalContent } from '@/components/modal';
+import type { ModalContentFactory } from '@/factories/modal.factory';
+import type { IOrder, PaymentMethod } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
 
 export class OrderModalContent implements IModalContent {
@@ -12,10 +12,14 @@ export class OrderModalContent implements IModalContent {
 	protected nextButton: HTMLButtonElement;
 	protected errors: HTMLSpanElement;
 
-	protected isValid: boolean = false;
-	protected payment: PaymentType | null = null;
+	protected isValid = false;
+	protected payment: PaymentMethod | null = null;
 
-	constructor(protected events: IEvents, protected order: IOrder, protected modalContentFactory: ModalContentFactory) {}
+	constructor(
+		protected events: IEvents,
+		protected order: IOrder,
+		protected modalContentFactory: ModalContentFactory
+	) {}
 
 	getElements(container: HTMLElement): void {
 		this.form = ensureElement<HTMLFormElement>('form', container);

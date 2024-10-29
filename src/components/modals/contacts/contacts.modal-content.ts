@@ -1,9 +1,9 @@
-import { ShopApi } from '@/components/shop-api';
-import { ModalContentFactory } from '@/factories/modal.factory';
-import { IOrder } from '@/types';
+import type { IShopApi } from '@/components/api/shop-api.interface';
+import type { ModalContentFactory } from '@/factories/modal.factory';
+import type { IOrder } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
-import { IEvents } from '../../base/events';
-import { IModalContent } from '../../modal';
+import type { IEvents } from '../../base/events';
+import type { IModalContent } from '../../modal';
 
 export class ContactsModalContent implements IModalContent {
 	protected form: HTMLFormElement;
@@ -12,12 +12,12 @@ export class ContactsModalContent implements IModalContent {
 	protected submitButton: HTMLButtonElement;
 	protected errors: HTMLSpanElement;
 
-	protected isValid: boolean = false;
+	protected isValid = false;
 
 	constructor(
 		protected events: IEvents,
 		protected order: IOrder,
-		protected api: ShopApi,
+		protected api: IShopApi,
 		protected modalContentFactory: ModalContentFactory
 	) {}
 

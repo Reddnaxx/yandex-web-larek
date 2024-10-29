@@ -1,4 +1,3 @@
-
 export interface IProduct {
 	id: string;
 	title: string;
@@ -8,7 +7,7 @@ export interface IProduct {
 	category: string;
 }
 
-export interface IProducts extends Array<IProduct> {}
+export type IProducts = Array<IProduct>;
 
 export interface IProductsResponse {
 	items: IProduct[];
@@ -20,10 +19,10 @@ export interface IOrderResponse {
 	total: number;
 }
 
-export type PaymentType = 'online' | 'cash';
+export type PaymentMethod = 'online' | 'cash';
 
 export interface IOrder {
-	payment: PaymentType;
+	payment: PaymentMethod;
 	email: string;
 	phone: string;
 	address: string;
@@ -31,7 +30,7 @@ export interface IOrder {
 	items: string[];
 }
 
-export interface IOrders extends Array<IOrder> {}
+export type IOrders = Array<IOrder>;
 
 export interface IView {
 	render(data?: object): HTMLElement;

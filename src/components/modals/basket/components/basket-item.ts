@@ -1,5 +1,5 @@
-import { IEvents } from '@/components/base/events';
-import { IProduct, IView } from '@/types';
+import type { IEvents } from '@/components/base/events';
+import type { IProduct, IView } from '@/types';
 import { ensureElement } from '@/utils/utils';
 
 export interface IBasketItemData {
@@ -15,7 +15,10 @@ export class BasketItemView implements IView {
 
 	protected id: string | null = null;
 
-	constructor(protected container: HTMLElement, protected events: IEvents) {
+	constructor(
+		protected container: HTMLElement,
+		protected events: IEvents
+	) {
 		this.title = ensureElement<HTMLSpanElement>('.card__title', this.container);
 		this.deleteButton = ensureElement<HTMLButtonElement>(
 			'.basket__item-delete',

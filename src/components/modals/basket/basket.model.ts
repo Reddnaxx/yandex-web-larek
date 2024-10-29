@@ -1,6 +1,6 @@
-import { IEvents } from '@/components/base/events';
-import { ShopApi } from '@/components/shop-api';
-import { IProduct } from '@/types';
+import type { IShopApi } from '@/components/api/shop-api.interface';
+import type { IEvents } from '@/components/base/events';
+import type { IProduct } from '@/types';
 
 export interface IBasketModel {
 	addItem(id: string): void;
@@ -12,9 +12,11 @@ export interface IBasketModel {
 export class BasketModel implements IBasketModel {
 	protected items: IProduct[] = [];
 
-	constructor(protected events: IEvents, protected api: ShopApi) {
+	constructor(
+		protected events: IEvents,
+		protected api: IShopApi
+	) {
 		this.initEvents();
-		
 	}
 
 	addItem(id: string): void {

@@ -1,14 +1,19 @@
-import { ModalContentFactory } from '@/factories/modal.factory';
-import { IProducts, IView } from '@/types';
+import type { ModalContentFactory } from '@/factories/modal.factory';
+import type { IProducts, IView } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
-import { IEvents } from '../base/events';
-import { IBasketModel } from '../modals/basket';
+import type { IEvents } from '../base/events';
+import type { IBasketModel } from '../modals/basket';
 import { GalleryItemView } from './components/gallery-item/gallery-item';
 
 export class GalleryView implements IView {
 	protected modalTemplate: HTMLTemplateElement;
 
-	constructor(protected container: HTMLElement, protected events: IEvents, protected basketModel: IBasketModel, protected modalContentFactory: ModalContentFactory) {
+	constructor(
+		protected container: HTMLElement,
+		protected events: IEvents,
+		protected basketModel: IBasketModel,
+		protected modalContentFactory: ModalContentFactory
+	) {
 		this.modalTemplate = ensureElement('#card-preview') as HTMLTemplateElement;
 
 		this.initEvents();

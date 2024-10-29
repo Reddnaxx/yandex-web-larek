@@ -1,8 +1,14 @@
-import { IOrder, IOrderResponse, IProduct, IProductsResponse } from '@/types';
+import type {
+	IOrder,
+	IOrderResponse,
+	IProduct,
+	IProductsResponse,
+} from '@/types';
 import { API_URL, CDN_URL } from '@/utils/constants';
-import { Api } from './base/api';
+import { Api } from '../base/api';
+import type { IShopApi } from './shop-api.interface';
 
-export class ShopApi extends Api {
+export class ShopApi extends Api implements IShopApi {
 	constructor() {
 		super(API_URL);
 	}

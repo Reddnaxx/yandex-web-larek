@@ -1,6 +1,6 @@
-import { IView } from '@/types';
+import type { IView } from '@/types';
 import { ensureElement } from '@/utils/utils';
-import { IEvents } from '../base/events';
+import type { IEvents } from '../base/events';
 
 export interface IModalContent {
 	getElements(container: HTMLElement): void;
@@ -17,7 +17,10 @@ export class ModalView implements IView {
 	protected wrapperContainer: HTMLDivElement;
 	protected closeButton: HTMLButtonElement;
 
-	constructor(protected container: HTMLElement, protected events: IEvents) {
+	constructor(
+		protected container: HTMLElement,
+		protected events: IEvents
+	) {
 		this.getHTMLElements(container);
 
 		this.wrapperContainer.onclick = (event) => {

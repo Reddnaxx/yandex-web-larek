@@ -1,10 +1,10 @@
-import { IEvents } from '@/components/base/events';
+import { ShopApi } from '@/components/api/shop-api';
+import type { IEvents } from '@/components/base/events';
 import { GalleryItemCategory } from '@/components/gallery';
-import { IModalContent } from '@/components/modal';
-import { ShopApi } from '@/components/shop-api';
-import { IProduct } from '@/types';
+import type { IModalContent } from '@/components/modal';
+import type { IProduct } from '@/types';
 import { ensureElement } from '@/utils/utils';
-import { IBasketModel } from '../basket';
+import type { IBasketModel } from '../basket';
 
 export class CardPreview implements IModalContent {
 	protected title: HTMLHeadingElement;
@@ -45,7 +45,7 @@ export class CardPreview implements IModalContent {
 		this.image.src = ShopApi.getImageUrl(this.content.image);
 
 		if (this.content.category in GalleryItemCategory) {
-			Object.values(GalleryItemCategory).forEach(className => {
+			Object.values(GalleryItemCategory).forEach((className) => {
 				this.category.classList.remove(className);
 			});
 

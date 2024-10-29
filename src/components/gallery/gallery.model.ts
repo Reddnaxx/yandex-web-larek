@@ -1,5 +1,5 @@
-import { IProduct, IProducts } from '@/types';
-import { IEvents } from '../base/events';
+import type { IProduct, IProducts } from '@/types';
+import type { IEvents } from '../base/events';
 
 export interface IGalleryModel {
 	products: IProducts;
@@ -16,6 +16,7 @@ export class GalleryModel implements IGalleryModel {
 		this.products = items;
 		this.events.emit('catalog:set', items);
 	}
+
 	getProduct(id: string): IProduct | undefined {
 		return this.products.find((item) => item.id === id);
 	}

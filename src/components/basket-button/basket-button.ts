@@ -1,8 +1,8 @@
-import { IView } from '@/types';
+import type { IView } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
-import { IEvents } from '../base/events';
-import { BasketModalContent, IBasketModel } from '../modals/basket';
-import { ShopApi } from '../shop-api';
+import type { IShopApi } from '../api/shop-api.interface';
+import type { IEvents } from '../base/events';
+import type { BasketModalContent, IBasketModel } from '../modals/basket';
 
 export class BasketButton implements IView {
 	protected counter: HTMLSpanElement;
@@ -12,7 +12,7 @@ export class BasketButton implements IView {
 		protected events: IEvents,
 		protected basketContent: BasketModalContent,
 		protected basketModel: IBasketModel,
-		protected api: ShopApi
+		protected api: IShopApi
 	) {
 		this.counter = ensureElement('.header__basket-counter', this.container);
 

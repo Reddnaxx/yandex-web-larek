@@ -1,4 +1,4 @@
-import { IEvents } from '../base/events';
+import type { IEvents } from '../base/events';
 
 export interface IModalModel {
 	open(content: HTMLElement): void;

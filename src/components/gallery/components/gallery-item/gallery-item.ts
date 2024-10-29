@@ -1,9 +1,9 @@
-import { IEvents } from '@/components/base/events';
-import { IModalData } from '@/components/modal';
-import { IBasketModel } from '@/components/modals/basket';
-import { ShopApi } from '@/components/shop-api';
-import { ModalContentFactory } from '@/factories/modal.factory';
-import { IProduct, IView } from '@/types';
+import { ShopApi } from '@/components/api/shop-api';
+import type { IEvents } from '@/components/base/events';
+import type { IModalData } from '@/components/modal';
+import type { IBasketModel } from '@/components/modals/basket';
+import type { ModalContentFactory } from '@/factories/modal.factory';
+import type { IProduct, IView } from '@/types';
 import { ensureElement } from '@/utils/utils';
 import { GalleryItemCategory } from './gallery-item-category.enum';
 
@@ -38,7 +38,10 @@ export class GalleryItemView implements IView {
 		this.container.onclick = () => {
 			this.events.emit('modal:open', {
 				container: this.modal,
-				content: this.modalContentFactory.createModalContent('card', this.product),
+				content: this.modalContentFactory.createModalContent(
+					'card',
+					this.product
+				),
 			} satisfies IModalData);
 		};
 	}

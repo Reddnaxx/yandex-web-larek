@@ -1,9 +1,9 @@
-import { IEvents } from '@/components/base/events';
-import { IModalContent } from '@/components/modal';
-import { ModalContentFactory } from '@/factories/modal.factory';
-import { IProduct } from '@/types';
+import type { IEvents } from '@/components/base/events';
+import type { IModalContent } from '@/components/modal';
+import type { ModalContentFactory } from '@/factories/modal.factory';
+import type { IProduct } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
-import { IBasketModel } from './basket.model';
+import type { IBasketModel } from './basket.model';
 import { BasketItemView } from './components/basket-item';
 
 export class BasketModalContent implements IModalContent {
@@ -12,9 +12,9 @@ export class BasketModalContent implements IModalContent {
 	protected checkoutButton: HTMLButtonElement;
 
 	protected items: IProduct[] = [];
-	protected total: number = 0;
+	protected total = 0;
 
-	private _isInit: boolean = false;
+	private _isInit = false;
 
 	constructor(
 		protected events: IEvents,
