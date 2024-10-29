@@ -1,13 +1,11 @@
+import { ShopApi } from '@/components/shop-api';
+import { ModalContentFactory } from '@/factories/modal.factory';
 import { IOrder } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
 import { IEvents } from '../../base/events';
 import { IModalContent } from '../../modal';
-import { ShopApi } from '../../shop-api';
-import { SuccessModalContent } from '../success';
 
 export class ContactsModalContent implements IModalContent {
-	protected api: ShopApi = ShopApi.Instance;
-
 	protected form: HTMLFormElement;
 	protected emailInput: HTMLInputElement;
 	protected phoneInput: HTMLInputElement;
@@ -16,7 +14,12 @@ export class ContactsModalContent implements IModalContent {
 
 	protected isValid: boolean = false;
 
-	constructor(protected events: IEvents, protected order: IOrder) {}
+	constructor(
+		protected events: IEvents,
+		protected order: IOrder,
+		protected api: ShopApi,
+		protected modalContentFactory: ModalContentFactory
+	) {}
 
 	getElements(container: HTMLElement): void {
 		this.form = ensureElement<HTMLFormElement>('form', container);
@@ -49,7 +52,7 @@ export class ContactsModalContent implements IModalContent {
 				this.events.emit('basket:clear');
 				this.events.emit('modal:open', {
 					container: cloneTemplate('#success'),
-					content: new SuccessModalContent(this.events, data),
+					content: this.modalContentFactory.createModalContent('success', data),
 				});
 			});
 		};

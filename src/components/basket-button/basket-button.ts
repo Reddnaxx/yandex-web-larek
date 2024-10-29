@@ -1,18 +1,17 @@
 import { IView } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
 import { IEvents } from '../base/events';
-import { BasketModalContent, BasketModel, IBasketModel } from '../modals/basket';
+import { BasketModalContent, IBasketModel } from '../modals/basket';
 import { ShopApi } from '../shop-api';
 
 export class BasketButton implements IView {
-	protected basket: IBasketModel = BasketModel.Instance;
-
 	protected counter: HTMLSpanElement;
 
 	constructor(
 		protected container: HTMLElement,
 		protected events: IEvents,
 		protected basketContent: BasketModalContent,
+		protected basketModel: IBasketModel,
 		protected api: ShopApi
 	) {
 		this.counter = ensureElement('.header__basket-counter', this.container);
@@ -31,13 +30,17 @@ export class BasketButton implements IView {
 		};
 
 		this.events.on('basket:change', () => {
-			this.counter.textContent = this.basket.getCount().toString();
+			this.updateCounter();
 		});
 	}
 
 	render(): HTMLElement {
-		this.counter.textContent = this.basket.toString();
+		this.updateCounter();
 
 		return this.container;
+	}
+
+	updateCounter(): void {
+		this.counter.textContent = this.basketModel.getCount().toString();
 	}
 }

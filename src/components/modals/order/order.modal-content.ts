@@ -1,8 +1,8 @@
 import { IEvents } from '@/components/base/events';
 import { IModalContent } from '@/components/modal';
+import { ModalContentFactory } from '@/factories/modal.factory';
 import { IOrder, PaymentType } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
-import { ContactsModalContent } from '../contacts/contacts.modal-content';
 
 export class OrderModalContent implements IModalContent {
 	protected form: HTMLFormElement;
@@ -15,7 +15,7 @@ export class OrderModalContent implements IModalContent {
 	protected isValid: boolean = false;
 	protected payment: PaymentType | null = null;
 
-	constructor(protected events: IEvents, protected order: IOrder) {}
+	constructor(protected events: IEvents, protected order: IOrder, protected modalContentFactory: ModalContentFactory) {}
 
 	getElements(container: HTMLElement): void {
 		this.form = ensureElement<HTMLFormElement>('form', container);
@@ -60,7 +60,7 @@ export class OrderModalContent implements IModalContent {
 			e.preventDefault();
 			this.events.emit('modal:open', {
 				container: cloneTemplate('#contacts'),
-				content: new ContactsModalContent(this.events, {
+				content: this.modalContentFactory.createModalContent('contacts', {
 					...this.order,
 					payment: this.payment,
 					address: this.addressInput.value,

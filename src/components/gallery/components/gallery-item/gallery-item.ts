@@ -1,15 +1,13 @@
 import { IEvents } from '@/components/base/events';
 import { IModalData } from '@/components/modal';
-import { BasketModel, IBasketModel } from '@/components/modals/basket';
-import { CardPreview } from '@/components/modals/card-preview';
+import { IBasketModel } from '@/components/modals/basket';
 import { ShopApi } from '@/components/shop-api';
+import { ModalContentFactory } from '@/factories/modal.factory';
 import { IProduct, IView } from '@/types';
 import { ensureElement } from '@/utils/utils';
 import { GalleryItemCategory } from './gallery-item-category.enum';
 
 export class GalleryItemView implements IView {
-	protected basket: IBasketModel = BasketModel.Instance;
-
 	protected product: IProduct;
 	protected title: HTMLHeadingElement;
 	protected image: HTMLImageElement;
@@ -19,7 +17,9 @@ export class GalleryItemView implements IView {
 	constructor(
 		protected container: HTMLElement,
 		protected modal: HTMLTemplateElement,
-		protected events: IEvents
+		protected events: IEvents,
+		protected basketModel: IBasketModel,
+		protected modalContentFactory: ModalContentFactory
 	) {
 		this.title = ensureElement<HTMLHeadingElement>(
 			'.card__title',
@@ -38,7 +38,7 @@ export class GalleryItemView implements IView {
 		this.container.onclick = () => {
 			this.events.emit('modal:open', {
 				container: this.modal,
-				content: new CardPreview(this.product, this.events),
+				content: this.modalContentFactory.createModalContent('card', this.product),
 			} satisfies IModalData);
 		};
 	}

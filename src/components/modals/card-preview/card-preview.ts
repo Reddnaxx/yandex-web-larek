@@ -4,11 +4,9 @@ import { IModalContent } from '@/components/modal';
 import { ShopApi } from '@/components/shop-api';
 import { IProduct } from '@/types';
 import { ensureElement } from '@/utils/utils';
-import { BasketModel, IBasketModel } from '../basket';
+import { IBasketModel } from '../basket';
 
 export class CardPreview implements IModalContent {
-	protected basket: IBasketModel = BasketModel.Instance;
-
 	protected title: HTMLHeadingElement;
 	protected text: HTMLParagraphElement;
 	protected category: HTMLSpanElement;
@@ -18,10 +16,14 @@ export class CardPreview implements IModalContent {
 
 	protected inBasket = false;
 
-	constructor(protected content: IProduct, protected events: IEvents) {}
+	constructor(
+		protected events: IEvents,
+		protected basketModel: IBasketModel,
+		protected content: IProduct
+	) {}
 
 	getElements(container: HTMLElement): void {
-		this.inBasket = this.basket.hasItem(this.content.id);
+		this.inBasket = this.basketModel.hasItem(this.content.id);
 		this.category = ensureElement<HTMLSpanElement>(
 			'.card__category',
 			container

@@ -10,14 +10,11 @@ export interface IBasketModel {
 	hasItem(id: string): boolean;
 }
 export class BasketModel implements IBasketModel {
-	static Instance: IBasketModel;
-
 	protected items: IProduct[] = [];
 
 	constructor(protected events: IEvents, protected api: ShopApi) {
-		BasketModel.Instance ??= this;
-
 		this.initEvents();
+		
 	}
 
 	addItem(id: string): void {

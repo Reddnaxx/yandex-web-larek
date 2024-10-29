@@ -1,14 +1,12 @@
 import { IEvents } from '@/components/base/events';
 import { IModalContent } from '@/components/modal';
+import { ModalContentFactory } from '@/factories/modal.factory';
 import { IProduct } from '@/types';
 import { cloneTemplate, ensureElement } from '@/utils/utils';
-import { OrderModalContent } from '../order/order.modal-content';
-import { BasketModel, IBasketModel } from './basket.model';
+import { IBasketModel } from './basket.model';
 import { BasketItemView } from './components/basket-item';
 
 export class BasketModalContent implements IModalContent {
-	protected basketModel: IBasketModel = BasketModel.Instance;
-
 	protected listContainer: HTMLUListElement;
 	protected totalPriceElement: HTMLSpanElement;
 	protected checkoutButton: HTMLButtonElement;
@@ -18,7 +16,11 @@ export class BasketModalContent implements IModalContent {
 
 	private _isInit: boolean = false;
 
-	constructor(protected events: IEvents) {
+	constructor(
+		protected events: IEvents,
+		protected basketModel: IBasketModel,
+		protected modalContentFactory: ModalContentFactory
+	) {
 		this.initEvents();
 	}
 
@@ -59,7 +61,7 @@ export class BasketModalContent implements IModalContent {
 		this.checkoutButton.onclick = () => {
 			this.events.emit('modal:open', {
 				container: cloneTemplate('#order'),
-				content: new OrderModalContent(this.events, {
+				content: this.modalContentFactory.createModalContent('order', {
 					payment: 'online',
 					email: '',
 					phone: '',
